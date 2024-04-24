@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" type="text/css"
+href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+<meta charset="utf-8">
+<title>Liste des Examens</title>
+</head>
+<body>
+	<div th:replace="template"></div>
+<div class="container mt-5">
+<div class="card">
+ <div class="card-header">
+ Liste des Examens
+ </div>
+ <div class="card-body">
+ 
+ <table class="table table-striped">
+ <tr>
+ <th>ID</th><th>etudiant</th><th>note</th>
+ </tr> 
+ <tr th:each="e:${examens.content}">
+ <td th:text="${e.id}"></td>
+ <td th:text="${e.etudiant}"></td>
+ <td th:text="${e.note}"></td> 
+ <td><a class="btn btn-danger" onclick="return confirm('Etes-vous sur ?')" th:href="@{supprimerExamens(id=${e.id}, page=${currentPage},size=${size})}">Supprimer</a></td>
+ </tr> 
+ </table>
+ 
+ <ul class="nav nav-pills">
+  <li th:each="page,status:${pages}">
+  <a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+  th:href="@{ ListeExamens(page=${status.index}, size=${size} ) }"
+  th:text="${status.index }"></a>
+  </li>
+  </ul>
+ </div>
+</div>
+</div>
+</body>
+</html>
